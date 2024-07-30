@@ -1,13 +1,25 @@
 import React from "react";
 
-const UserCard = ({ userImg, firstName }) => {
+const UserCard = ({ id, 
+  firstName,
+  age,
+  email,
+  address,
+  phone,
+  jobTitle,
+  userImg }) => {
   return (
-    <div className="flex p-5 gap-4 items-center">
-      <img className="w-10 h-10 rounded-full" src={userImg} alt="" />
-      <div>
-        <h1>{firstName}</h1>
-        <p>{position}</p>
-      </div>
+    <div className="grid grid-cols-12 p-5 gap-3 items-center justify-between border w-full">
+        <div className="flex items-center gap-5">
+          <div> {id}</div>
+          <img className="flex-none w-10 h-10 rounded-full" src={userImg} alt="" />
+          </div>
+        <h1 className="col-span-2 w-30 text-xl">{firstName}</h1>
+        <p className="col-span-2">{jobTitle}</p>
+        <p className="text-center">{age}</p>
+        <p className="">{phone}</p>
+        <p className="col-span-2">{email}</p>
+        <p className="col-span-3">{address}</p>
     </div>
   );
 };
