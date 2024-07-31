@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 
 const Input = ({ handleChange }) => {
+  const changeValue = (e) => {
+    handleChange(e.target.value);
+  }
   return (
     <>
       <input
         className="border border-gray-400"
         type="text"
-        onChange={handleChange}
+        onChange={changeValue}
       />
-      {/* <p>Search value: {searchValue}</p> */}
-      Clear
     </>
   );
 };

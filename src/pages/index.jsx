@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Input from "@/components/input";
 import UserCard from "@/components/user.card";
 import React, { useState } from "react";
+import { TiDeleteOutline } from "react-icons/ti";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -64,12 +65,22 @@ export default function Home() {
   const [users, setUsers] = useState(profiles);
 
   const handleChange = (text) => {
-    console.log("text", text.target.value);
-    setSearchValue(text.target.value);
+
+    setSearchValue(text);
+
     const findUser = profiles.filter((user) =>
-      user.firstName.toLowerCase().includes(searchValue.toLowerCase())
+      user.firstName.toLowerCase().includes(text.toLowerCase())
     );
     setUsers(findUser);
+  };
+
+  const deleteButton = (text) => {
+
+    setUsers(text);
+
+    const deleteLine = profiles.splice(users.splice(1));
+    setUsers(deleteLine);
+    console.log("dl", deleteLine);
   };
 
   return (
@@ -83,7 +94,7 @@ export default function Home() {
           onChange={handleChange}
         /> */}
         <p>Search value: {searchValue}</p>
-        <button
+        <button className="border rounded px-2 mr-2 mt-2"
           onClick={() => {
             console.log("clear");
             setUsers(null);
@@ -91,7 +102,7 @@ export default function Home() {
         >
           Clear
         </button>
-        <button
+        <button className="border rounded px-2"
           onClick={() => {
             console.log("view");
             setUsers(profiles);
@@ -99,6 +110,14 @@ export default function Home() {
         >
           View
         </button>
+        {/* <button className="text-center ml-2"
+        onClick={() => {
+          console.log("delete");
+            setUsers(users.splice(1));
+        }}
+      >
+      <TiDeleteOutline />
+      </button> */}
       </div>
       {/* {profiles?.length !== 0 ? (
         profiles?.map((profile) => (
@@ -111,7 +130,7 @@ export default function Home() {
       )} */}
 
       {users?.map((profile) => (
-        <UserCard
+        <UserCard deleteChange={deleteButton}
           id={profile.id}
           firstName={profile.firstName}
           age={profile.age}
@@ -121,8 +140,10 @@ export default function Home() {
           jobTitle={profile.jobTitle}
           userImg={profile.imageUrl}
         />
+        
       ))}
       {!profiles && <p>Empty</p>}
+
     </main>
   );
 }
