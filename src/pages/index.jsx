@@ -78,7 +78,7 @@ export default function Home() {
 
     setUsers(text);
 
-    const deleteLine = profiles.splice(users.splice(1));
+    const deleteLine = users.splice(1);
     setUsers(deleteLine);
     console.log("dl", deleteLine);
   };
