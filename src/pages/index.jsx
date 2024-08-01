@@ -65,7 +65,6 @@ export default function Home() {
   const [users, setUsers] = useState(profiles);
 
   const handleChange = (text) => {
-
     setSearchValue(text);
 
     const findUser = profiles.filter((user) =>
@@ -74,13 +73,10 @@ export default function Home() {
     setUsers(findUser);
   };
 
-  const deleteButton = (text) => {
-
-    setUsers(text);
-
-    const deleteLine = users.splice(1);
-    setUsers(deleteLine);
-    console.log("dl", deleteLine);
+  const deleteUser = (userId) => {
+    console.log("userId", userId);
+    const deletedUser = users.filter((user) => user.id !== userId);
+    setUsers(deletedUser);
   };
 
   return (
@@ -94,7 +90,8 @@ export default function Home() {
           onChange={handleChange}
         /> */}
         <p>Search value: {searchValue}</p>
-        <button className="border rounded px-2 mr-2 mt-2"
+        <button
+          className="border rounded px-2 mr-2 mt-2"
           onClick={() => {
             console.log("clear");
             setUsers(null);
@@ -102,7 +99,8 @@ export default function Home() {
         >
           Clear
         </button>
-        <button className="border rounded px-2"
+        <button
+          className="border rounded px-2"
           onClick={() => {
             console.log("view");
             setUsers(profiles);
@@ -130,8 +128,8 @@ export default function Home() {
       )} */}
 
       {users?.map((profile) => (
-        <UserCard deleteChange={deleteButton}
-          id={profile.id}
+        <UserCard
+          userId={profile.id}
           firstName={profile.firstName}
           age={profile.age}
           email={profile.email}
@@ -139,11 +137,10 @@ export default function Home() {
           phone={profile.phone}
           jobTitle={profile.jobTitle}
           userImg={profile.imageUrl}
+          deleteUser={deleteUser}
         />
-        
       ))}
       {!profiles && <p>Empty</p>}
-
     </main>
   );
 }
